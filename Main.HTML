@@ -3,22 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>String Reverser</title>
+    <title>GeneSprint - RNA to DNA Transcription</title>
+
+    <!-- CSS Styling -->
+    <style>
+        /* Global Style */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Style */
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Form Style */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 80%;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Result Section */
+        #result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #eaf6ea;
+            border-left: 5px solid #4CAF50;
+            font-size: 1.1em;
+            display: none;  /* Initially hidden */
+            border-radius: 5px;
+        }
+
+        #result p {
+            margin: 0;
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+
+    <!-- JavaScript for Reverse Transcription -->
+    <script>
+        function reverseTranscription() {
+            // Get the input RNA sequence
+            const rnaSequence = document.getElementById("rna_sequence").value.toUpperCase();
+
+            // Perform reverse transcription (replace U with T)
+            const dnaSequence = rnaSequence.replace(/U/g, 'T');
+
+            // Output the original RNA and transcribed DNA
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = 'block';  // Show result section
+            resultDiv.innerHTML = `
+                <h2>Transcription Results:</h2>
+                <p><strong>Original RNA Sequence:</strong> ${rnaSequence}</p>
+                <p><strong>Transcribed DNA Sequence:</strong> ${dnaSequence}</p>
+            `;
+        }
+    </script>
 </head>
 <body>
-    <h1>Enter a string to reverse</h1>
+    <!-- Header -->
+    <header>
+        <h1>GeneSprint - RNA to DNA Transcription Tool</h1>
+    </header>
 
-    <!-- Form to input the text -->
-    <form action="/reverse" method="POST">
-        <label for="input_text">Enter text:</label>
-        <input type="text" id="input_text" name="input_text" required>
-        <input type="submit" value="Reverse">
-    </form>
+    <!-- Main Container -->
+    <div class="container">
+        <h2>Enter RNA Sequence to Transcribe</h2>
 
-    <!-- Display the original and reversed string if available -->
-    {% if original %}
-        <p>Original Text: {{ original }}</p>
-        <p>Reversed Text: {{ reversed }}</p>
-    {% endif %}
+        <!-- Form to input RNA sequence -->
+        <form onsubmit="event.preventDefault(); reverseTranscription();">
+            <label for="rna_sequence">Enter RNA sequence (A, U, G, C):</label>
+            <input type="text" id="rna_sequence" name="rna_sequence" placeholder="AUGC..." required>
+            <input type="submit" value="Transcribe">
+        </form>
+
+        <!-- Result Section (hidden initially) -->
+        <div id="result"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 GeneSprint. All rights reserved.</p>
+    </footer>
 </body>
 </html>
