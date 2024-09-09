@@ -3,157 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeneSprint - RNA to DNA Transcription</title>
-
-    <!-- CSS Styling -->
+    <title>GeneSprint.com - Bioinformatics Tools</title>
     <style>
-        /* Global Style */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+        /* ... existing styles ... */
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GeneSprint.com - Bioinformatics Tools</h1>
+    </header>
+
+    <div class="container">
+        <h2>Bioinformatics Tools</h2>
+
+        <!-- RNA to DNA Transcription Form -->
+        <section>
+            <h3>RNA to DNA Transcription</h3>
+            <form id="transcriptionForm" onsubmit="event.preventDefault(); reverseTranscription();">
+                <label for="rna_sequence">Enter RNA sequence (A, U, G, C):</label>
+                <input type="text" id="rna_sequence" name="rna_sequence" placeholder="AUGC..." required>
+                <input type="submit" value="Transcribe">
+            </form>
+            <div id="transcriptionResult"></div>
+        </section>
+
+        <!-- Sequence Alignment -->
+        <section>
+            <h3>Sequence Alignment</h3>
+            <form onsubmit="event.preventDefault(); alignSequences();">
+                <label for="seq1">Sequence 1:</label>
+                <input type="text" id="seq1" placeholder="ATGC..." required>
+                <label for="seq2">Sequence 2:</label>
+                <input type="text" id="seq2" placeholder="ATGC..." required>
+                <input type="submit" value="Align">
+            </form>
+            <div id="alignmentResult"></div>
+        </section>
+
+        <!-- Codon Frequency -->
+        <section>
+            <h3>Codon Frequency Analysis</h3>
+            <form onsubmit="event.preventDefault(); analyzeCodons();">
+                <label for="dnaSeq">DNA Sequence:</label>
+                <input type="text" id="dnaSeq" placeholder="ATGC..." required>
+                <input type="submit" value="Analyze">
+            </form>
+            <div id="codonResult"></div>
+        </section>
+
+        <!-- GC Content -->
+        <section>
+            <h3>GC Content Calculator</h3>
+            <form onsubmit="event.preventDefault(); calculateGC();">
+                <label for="gcSeq">Sequence:</label>
+                <input type="text" id="gcSeq" placeholder="ATGC..." required>
+                <input type="submit" value="Calculate GC">
+            </form>
+            <div id="gcResult"></div>
+        </section>
+
+        <!-- Protein Translation -->
+        <section>
+            <h3>Protein Translation</h3>
+            <form onsubmit="event.preventDefault(); translateDNA();">
+                <label for="proteinSeq">DNA Sequence:</label>
+                <input type="text" id="proteinSeq" placeholder="ATGC..." required>
+                <input type="submit" value="Translate">
+            </form>
+            <div id="proteinResult"></div>
+        </section>
+    </div>
+    
+    <script>
+        function reverseTranscription() {
+            const rnaSequence = document.getElementById("rna_sequence").value.toUpperCase();
+
+            // Input validation
+            if (!/^[AUGC]*$/.test(rnaSequence)) {
+                document.getElementById("transcriptionResult").innerHTML = `<p class="error-message">Please enter a valid RNA sequence containing only A, U, G, C.</p>`;
+                return;
+            }
+
+            // Perform reverse transcription
+            const dnaSequence = rnaSequence.replace(/U/g, 'T');
+
+            //
+
+    </script>
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GeneSprint.com - Bioinformatics Tools</title>
+        <style>
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        /* Header Style */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
         header {
-            background-color: #4CAF50;
-            padding: 20px;
-            text-align: center;
+            background: linear-gradient(to right, #43cea2, #185a9d);
             color: white;
+            padding: 1rem 0;
+            text-align: center;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.5em;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Container */
+        /* Container Styles */
         .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
 
-        /* Form Style */
+        /* Section Styles */
+        section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Form and Input Styles */
         form {
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
         label {
-            font-size: 1.2em;
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
+            color: #555;
         }
 
         input[type="text"] {
-            padding: 10px;
-            font-size: 1em;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 80%;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
         }
 
         input[type="submit"] {
             background-color: #4CAF50;
             color: white;
+            padding: 0.8rem;
             border: none;
-            padding: 12px 24px;
-            font-size: 1em;
+            border-radius: 4px;
             cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            font-size: 1rem;
         }
 
         input[type="submit"]:hover {
             background-color: #45a049;
         }
 
-        /* Result Section */
-        #result {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #eaf6ea;
-            border-left: 5px solid #4CAF50;
-            font-size: 1.1em;
-            display: none;  /* Initially hidden */
-            border-radius: 5px;
-        }
-
-        #result p {
-            margin: 0;
-        }
-
-        h2 {
-            color: #4CAF50;
-            margin-bottom: 15px;
+        /* Results */
+        div[id$="Result"] {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #4CAF50;
+            padding: 1rem 0;
+            background: #333;
             color: white;
         }
 
-        footer p {
-            margin: 0;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
         }
     </style>
-
-    <!-- JavaScript for Reverse Transcription -->
-    <script>
-        function reverseTranscription() {
-            // Get the input RNA sequence
-            const rnaSequence = document.getElementById("rna_sequence").value.toUpperCase();
-
-            // Perform reverse transcription (replace U with T)
-            const dnaSequence = rnaSequence.replace(/U/g, 'T');
-
-            // Output the original RNA and transcribed DNA
-            const resultDiv = document.getElementById("result");
-            resultDiv.style.display = 'block';  // Show result section
-            resultDiv.innerHTML = `
-                <h2>Transcription Results:</h2>
-                <p><strong>Original RNA Sequence:</strong> ${rnaSequence}</p>
-                <p><strong>Transcribed DNA Sequence:</strong> ${dnaSequence}</p>
-            `;
-        }
-    </script>
-</head>
-<body>
-    <!-- Header -->
+        <!-- ... rest of your head content ... -->
+    </head>
+    <body>
     <header>
-        <h1>GeneSprint - RNA to DNA Transcription Tool</h1>
+        <h1>GeneSprint.com</h1>
+        <p>Your Bioinformatics Toolkit</p>
     </header>
 
-    <!-- Main Container -->
-    <div class="container">
-        <h2>Enter RNA Sequence to Transcribe</h2>
+    <!-- ... rest of your body content with tools ... -->
 
-        <!-- Form to input RNA sequence -->
-        <form onsubmit="event.preventDefault(); reverseTranscription();">
-            <label for="rna_sequence">Enter RNA sequence (A, U, G, C):</label>
-            <input type="text" id="rna_sequence" name="rna_sequence" placeholder="AUGC..." required>
-            <input type="submit" value="Transcribe">
-        </form>
-
-        <!-- Result Section (hidden initially) -->
-        <div id="result"></div>
-    </div>
-
-    <!-- Footer -->
     <footer>
-        <p>© 2024 GeneSprint. All rights reserved.</p>
+        <p>© 2024 GeneSprint.com. Pioneering Bioinformatics Solutions.</p>
     </footer>
-</body>
-</html>
+    </body>
+
