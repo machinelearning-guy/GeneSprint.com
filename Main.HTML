@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Reverser</title>
+</head>
+<body>
+    <h1>Enter a string to reverse</h1>
+
+    <!-- Form to input the text -->
+    <form action="/reverse" method="POST">
+        <label for="input_text">Enter text:</label>
+        <input type="text" id="input_text" name="input_text" required>
+        <input type="submit" value="Reverse">
+    </form>
+
+    <!-- Display the original and reversed string if available -->
+    {% if original %}
+        <p>Original Text: {{ original }}</p>
+        <p>Reversed Text: {{ reversed }}</p>
+    {% endif %}
+</body>
+</html>
